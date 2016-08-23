@@ -17,7 +17,7 @@ public class Shoot : MonoBehaviour {
 	void Update () {
         
         // Check for fire 1 button down + temporary automatic fire (because fun)
-        if (Input.GetButtonDown("Fire1") || true) {// || Input.GetButton("Fire1")) {
+        if (Input.GetButtonDown("Fire1")) {// || Input.GetButton("Fire1")) {
 
             // Instantiate bullet
             GameObject bullet = (GameObject) Instantiate(bulletPrefab, bulletOrigin.transform.position, bulletOrigin.transform.rotation);

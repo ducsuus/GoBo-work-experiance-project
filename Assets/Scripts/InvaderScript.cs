@@ -18,10 +18,33 @@ public class InvaderScript : MonoBehaviour {
     // Explosion effect (particle system)
     public GameObject explosionPrefab;
 
+    // Bullet Speed
+    public float bulletSpeed = 10.0f;
+
+    //Fire Rate
+    public float bulletTime = 4.0f;
+
+    //Bullet Prefab
+    public GameObject InvaderBulletPrefab;
+
+    //Bullet Origin
+    public GameObject InvaderBulletOrigin;
 
 	// Use this for initialization
 	void Start () {
+
+		InvokeRepeating("Shoot", 0, bulletTime);
 	
+	}
+
+	void Shoot () { // Pew Pew
+
+		GameObject InvaderBullet = (GameObject) Instantiate(InvaderBulletPrefab, InvaderBulletOrigin.transform.position, InvaderBulletOrigin.transform.rotation); //Creates Instance Of Bullet
+
+		Vector3 force = InvaderBulletOrigin.transform.forward * bulletSpeed * 1;	// Defines direction and magnitude of force
+
+        InvaderBullet.GetComponent<Rigidbody>().AddForce(force); // Adds the force
+
 	}
 	
 	// Update is called once per frame
@@ -41,6 +64,8 @@ public class InvaderScript : MonoBehaviour {
 
 	        // Move invader
 	        transform.Translate(movement);
+
+
 
 		}
 	

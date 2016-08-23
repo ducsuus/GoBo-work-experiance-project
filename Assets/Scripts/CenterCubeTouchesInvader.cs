@@ -12,11 +12,11 @@ public class CenterCubeTouchesInvader : MonoBehaviour {
 			//col.gameObject.GetComponent<ParticleSystem>().Emit(30);
 			Destroy(col.gameObject);
 
-			CubeHealth--;
+			this.CubeHealth--;
 
-			if(CubeHealth <= 0) {
+			if(this.CubeHealth <= 0) {
 
-				Destroy(gameObject);
+				Destroy(this.gameObject);
 			
 			}
 
