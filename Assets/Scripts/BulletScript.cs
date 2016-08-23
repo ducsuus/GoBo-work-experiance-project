@@ -3,9 +3,9 @@ using System.Collections;
 
 public class BulletScript : MonoBehaviour {
 
-	void Start () {
+	public int bulletDamage = 25;
 
-        Debug.Log("We started");
+	void Start () {
 	
 	}
 	
@@ -15,9 +15,14 @@ public class BulletScript : MonoBehaviour {
 
     void OnCollisionEnter (Collision collider){
 
-        if(collider.gameObject.tag == "Enemy"){
+    	// If we hit an invader -> this could be a generic mob property, but in this case is not worth implementing (? -> we can only have one tag, how can we see if another thing hit is derived from mob classy thing?)
+        if(collider.gameObject.tag == "Invader"){
 
-            Debug.Log("Noot noot");
+            // Get the instance of invader script
+            InvaderScript invaderScript = collider.gameObject.GetComponent<InvaderScript>();
+
+            // Hit the invader
+            invaderScript.Hit(this.bulletDamage);
 
         }
 
