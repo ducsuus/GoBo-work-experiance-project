@@ -8,6 +8,8 @@ public class PlayerScript : MonoBehaviour {
 
 	void Start () {
 
+		Cursor.lockState = CursorLockMode.Locked;
+
 	}
 
 	// Update is called once per frame
@@ -27,5 +29,6 @@ public class PlayerScript : MonoBehaviour {
 	
 			}
 		}
+
 	}
 }

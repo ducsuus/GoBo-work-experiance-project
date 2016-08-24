@@ -6,8 +6,6 @@ public class Tool : MonoBehaviour {
 
 	public Tool(){
 
-		Debug.Log("Created tool");
-
 	}
 
 	public virtual void OnOpen(){
