@@ -1,14 +1,20 @@
-﻿// This ENTIRE script should not be here, used as placeholder till PlayerScript is implemented.
-
-
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
-public class TemporaryPlayerHealthScript : MonoBehaviour {
+public class PlayerScript : MonoBehaviour {
 
-	public int PlayerHealth = 20; // defines initial health
-	
+	// defines initial health
+	public int PlayerHealth = 20;
+
+	void Start () {
+
+	}
+
 	// Update is called once per frame
+	void Update () {
+
+		}
+
 	void OnCollisionEnter (Collision col) {
 
 		if(col.gameObject.tag == "InvaderBullet") { // if hit by a bullet from enemy
@@ -18,10 +24,8 @@ public class TemporaryPlayerHealthScript : MonoBehaviour {
 			if(PlayerHealth <= 0) { // is you's deaded yet?
 
 				Destroy(gameObject); // rip in peace
-
-			}
-
-		}
 	
+			}
+		}
 	}
 }

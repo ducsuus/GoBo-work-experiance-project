@@ -12,7 +12,7 @@ public class HealthBoxUpdater : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
-		HealthDisplay.text = ""+Player.GetComponent<TemporaryPlayerHealthScript>().PlayerHealth; // THIS WILL NEED CHANGING WHEN PLAYERSCRIPT IS IMPLIMENTED! (Potential Screw Up Here...)
+		HealthDisplay.text = ""+Player.GetComponent<PlayerScript>().PlayerHealth; // Displays the player health, fetching it from PlayerScript
 
 	}
 }
