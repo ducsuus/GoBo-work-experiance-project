@@ -30,10 +30,22 @@ public class InvaderScript : MonoBehaviour {
     //Bullet Origin
     public GameObject InvaderBulletOrigin;
 
+    //Invader Scale (Bit Like A Level?)
+    public int InvaderScale; 
+
+    //Invader Spawn Point
+    public GameObject InvaderSpawn;
+
 	// Use this for initialization
 	void Start () {
 
 		InvokeRepeating("Shoot", 0, bulletTime);
+
+		this.transform.localScale = new Vector3(InvaderScale, InvaderScale, InvaderScale); //SET SIZE\
+
+		this.health = InvaderScale * 10;
+
+		this.speed = InvaderScale / 10;
 	
 	}
 
@@ -83,10 +95,13 @@ public class InvaderScript : MonoBehaviour {
 		if (this.health <= 0){
 
 			// Destroy self in 0.4 second
-			Destroy(this.gameObject, 0.4f);
+			Destroy(this.gameObject, 0.1f);
 
 			// Particle effects (?)
 			Instantiate(this.explosionPrefab, this.transform.position, this.transform.rotation);
+
+			// Total invader count - 1
+			InvaderSpawn.GetComponent<EnemySpawnScript>().NoInvadersAlive--;
 
 			// Enemy destroyed
 			return true;

@@ -16,17 +16,23 @@ public class EnemySpawnScript : MonoBehaviour {
 
 	public int SpawnboxSize = 100;
 
+	public int NoInvadersAlive; // No. Invaders Alive
+
 	void Spawn () {
 
-		Vector3 Postition = new Vector3 ((InvaderSpawn.transform.position.x + Random.Range(-SpawnboxSize, SpawnboxSize)), (InvaderSpawn.transform.position.y), (InvaderSpawn.transform.position.z + Random.Range(-SpawnboxSize, SpawnboxSize)));
-
-		//InvaderScript invader = (InvaderScript) Instantiate(InvaderPrefab, Postition, Quaternion.identity); // Spawns the Invader
+		Vector3 Postition = new Vector3 ((InvaderSpawn.transform.position.x + Random.Range(-SpawnboxSize, SpawnboxSize)), (InvaderSpawn.transform.position.y), (InvaderSpawn.transform.position.z + Random.Range(-SpawnboxSize, SpawnboxSize))); // Places it in random place in sky
 
 		GameObject invader = (GameObject) Instantiate(InvaderPrefab, Postition, Quaternion.identity); // Spawns the Invader - but better!
 
-		InvaderScript script = invader.GetComponent<InvaderScript>();
+		InvaderScript script = invader.GetComponent<InvaderScript>(); // Give it it's script
 
-		script.attraction = this.attraction;
+		script.InvaderScale = Random.Range(1,100); // Gives Invader a scale value
+
+		script.attraction = this.attraction; // Sets Attraction to player <3
+
+		script.InvaderSpawn = this.gameObject; // Sets spawn to object spawning it. 
+
+		NoInvadersAlive++;
 
 	}
 
@@ -42,9 +48,12 @@ public class EnemySpawnScript : MonoBehaviour {
 
 	}
 
-	void Start () {
+	void Update () {
 
-		InvokeRepeating("Wave", 0, TimeDelay); // Controls Repetition
-	
+		// InvokeRepeating("Wave", 0, TimeDelay); // Controls Repetition
+        if(NoInvadersAlive == 0) {
+        	Wave();
+        }
+
 	}
 }
