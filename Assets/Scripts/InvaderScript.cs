@@ -50,6 +50,9 @@ public class InvaderScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		if(this.attraction == null)
+			return;
+
 		// Direction to travel in
 		Vector3 direction = this.attraction.transform.position - this.transform.position;
 
