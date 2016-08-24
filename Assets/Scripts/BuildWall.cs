@@ -13,19 +13,13 @@ public class BuildWall : Tool{
 
     public override void OnOpen(){
 
-    	Debug.Log("Pistol opened!");
-
     }
 
     public override void OnClose(){
 
-    	Debug.Log("Pistol opened!");
-
     }
 	
 	public override void OnFire () {
-
-		Debug.Log("Pistol fired");
 
         // Instantiate bullet
         GameObject bullet = (GameObject) MonoBehaviour.Instantiate(bulletPrefab, bulletOrigin.transform.position, bulletOrigin.transform.rotation);

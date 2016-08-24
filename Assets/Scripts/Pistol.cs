@@ -13,13 +13,11 @@ public class Pistol : Tool{
 
     public override void OnOpen(){
 
-    	Debug.Log("Pistol opened!");
 
     }
 
     public override void OnClose(){
 
-    	Debug.Log("Pistol opened!");
 
     }
 	
