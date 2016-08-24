@@ -1,44 +1,8 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class PlayerScript : MonoBehaviour {
-
-	Pistol pistol;
-
-	private List<Tool> tools = new List<Tool>();
-
-	void Start () {
-
-		Pistol pistol = new Pistol();
-		this.tools.add(pistol)
-
-		pistol.OnOpen();
-	
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-		if (Input.GetButtonDown("Fire1")) {
-
-			this.pistol.OnFire();
-
-		}
-	
-	}
-}
-
-public class Tool {
-
-	public Tool(){
-
-		Debug.Log("Created tool");
-
-	}
-
-}
-
-public class Pistol : Tool{
+public class BuildWall : Tool{
 
 	// Speed of bullet -> Currently used as force multiplier
     public float speed = 100.0f;
@@ -47,13 +11,21 @@ public class Pistol : Tool{
     // Bullet origin
     public GameObject bulletOrigin;
 
-    public void OnOpen(){
+    public override void OnOpen(){
+
+    	Debug.Log("Pistol opened!");
+
+    }
+
+    public override void OnClose(){
 
     	Debug.Log("Pistol opened!");
 
     }
 	
-	public void OnFire () {
+	public override void OnFire () {
+
+		Debug.Log("Pistol fired");
 
         // Instantiate bullet
         GameObject bullet = (GameObject) MonoBehaviour.Instantiate(bulletPrefab, bulletOrigin.transform.position, bulletOrigin.transform.rotation);
