@@ -50,8 +50,6 @@ public class InventoryScript : MonoBehaviour {
 			else if(this.selectedTool >= this.tools.Count)
 				this.selectedTool = 0;
 
-			Debug.Log("Selected tool: " + this.selectedTool + " slotChange: " + slotChange);
-
 			this.currentToolScript.OnClose();
 
 			Destroy(this.currentTool);
@@ -100,7 +98,7 @@ public class InventoryScript : MonoBehaviour {
 
 		this.currentToolScript = this.currentTool.GetComponent<Tool>();
 
-		this.currentToolScript.OnOpen();
+		this.currentToolScript.OnOpen(this.gameObject);
 		
 	}
 }

@@ -20,6 +20,8 @@ public class SMG : Tool{
 
         if(this.canFire){
 
+            // bulletRotation = bulletOrigin.transform.rotation;
+
             // Instantiate bullet
             GameObject bullet = (GameObject) MonoBehaviour.Instantiate(bulletPrefab, bulletOrigin.transform.position, bulletOrigin.transform.rotation);
 
