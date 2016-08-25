@@ -69,6 +69,14 @@ public class InventoryScript : MonoBehaviour {
 
 		}
 
+		// Fire1 Hold
+		if (Input.GetButton("Fire1")) {
+
+			// Send "fire hold" to the tool
+			this.currentToolScript.OnFireHold();
+
+		}
+
 		// Fire2
 		if (Input.GetButtonDown("Fire2")) {
 

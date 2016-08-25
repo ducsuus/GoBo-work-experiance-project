@@ -23,6 +23,11 @@ public class Tool : MonoBehaviour {
 		return;
 	}
 
+	public virtual void OnFireHold(){
+
+		return;
+	}
+
 	public virtual void OnFireSecondary(){
 
 		return;
