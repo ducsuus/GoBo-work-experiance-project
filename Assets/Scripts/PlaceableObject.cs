@@ -8,9 +8,13 @@ public class PlaceableObject : Tool {
 
 	// The place to instantiate objects
 	public GameObject placeableSpawn;
+
 	// Material to preview objects with
 	public Material previewMaterial;
 
+	// Cost of the object
+	public int cost;
+	
 	public override void OnOpen(){
 
 		GameObject placeable = (GameObject) MonoBehaviour.Instantiate(this.placeable, this.placeableSpawn.transform.position, this.placeableSpawn.transform.rotation);
@@ -18,13 +22,22 @@ public class PlaceableObject : Tool {
 		placeable.transform.parent = placeableSpawn.transform;
 
 		this.CleanObject(placeable);
+
+		base.OnOpen();
 	
 	}
 	
 	public override void OnFire () {
 
-		Instantiate(this.placeable, this.placeableSpawn.transform.position, this.placeableSpawn.transform.rotation);
+		PlayerScript playerScript = this.player.GetComponent<PlayerScript>(); // finds PlayerScript for access to the player's score
 
+		if (playerScript.playerScore >= cost) { // If player has the required score
+
+			Instantiate(this.placeable, this.placeableSpawn.transform.position, this.placeableSpawn.transform.rotation); // place item
+
+			playerScript.playerScore -= cost; // take cost from score
+
+		}
 	}
 
 	// Get rid of all rigid bodies -> we don't want physics on any previews

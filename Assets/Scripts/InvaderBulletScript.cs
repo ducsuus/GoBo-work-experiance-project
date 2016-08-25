@@ -19,13 +19,13 @@ public class InvaderBulletScript : MonoBehaviour {
 
 		if(col.gameObject.tag == "Player") { // if hit by a bullet from enemy
 
-			int PlayerHealth = col.gameObject.GetComponent<PlayerScript>().PlayerHealth;
+			PlayerScript playerScript = col.gameObject.GetComponent<PlayerScript>();
 
-			PlayerHealth -= BulletDamage; // player takes
+			playerScript.PlayerHealth -= BulletDamage; // player takes damage from bullets
 
-			if(PlayerHealth <= 0) { // is you's deaded yet?
+			if(playerScript.PlayerHealth <= 0) { // is you's deaded yet?
 
-				//Destroy(col.gameObject); // rip in peace
+				Destroy(col.gameObject); // rip in peace
 			}
 		}
 	}

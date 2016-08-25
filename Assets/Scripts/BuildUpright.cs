@@ -8,8 +8,6 @@ public class BuildUpright : MonoBehaviour {
 		Vector3 rotation = this.transform.rotation.eulerAngles;
 
 		this.transform.rotation = Quaternion.Euler(0, rotation.y, rotation.z);
-
-		Debug.Log("rotation: " + this.transform.rotation);
 	
 	}
 }

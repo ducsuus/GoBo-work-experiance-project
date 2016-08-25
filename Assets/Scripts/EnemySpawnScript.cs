@@ -11,9 +11,11 @@ public class EnemySpawnScript : MonoBehaviour {
 	// The object which the invader is currently attracted to
     public GameObject attraction;
 
+    public GameObject player;
+
 	public float TimeDelay; // Time Between spawns
 
-	public int WaveNumber = 1; // Initial Wave
+	public int WaveNumber = 0; // Initial Wave
 
 	public int SpawnboxSize = 100;
 
@@ -30,6 +32,8 @@ public class EnemySpawnScript : MonoBehaviour {
 		script.InvaderScale = Random.Range(1,50); // Gives Invader a scale value
 
 		script.attraction = this.attraction; // Sets Attraction to player <3
+
+		script.player = this.player;
 
 		script.InvaderSpawn = this.gameObject; // Sets spawn to object spawning it. 
 

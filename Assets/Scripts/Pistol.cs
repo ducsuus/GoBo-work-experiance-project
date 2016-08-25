@@ -23,8 +23,6 @@ public class Pistol : Tool{
 	
 	public override void OnFire () {
 
-		Debug.Log("Pistol fired");
-
         // Instantiate bullet
         GameObject bullet = (GameObject) MonoBehaviour.Instantiate(bulletPrefab, bulletOrigin.transform.position, bulletOrigin.transform.rotation);
 

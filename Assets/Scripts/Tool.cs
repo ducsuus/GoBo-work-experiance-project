@@ -4,13 +4,23 @@ using System.Collections.Generic;
 
 public class Tool : MonoBehaviour {
 
+	public GameObject player;
+
 	public Tool(){
 
+		return;
+	}
+
+	public virtual void OnOpen(GameObject player){
+
+		this.player = player;
+
+		return; 
 	}
 
 	public virtual void OnOpen(){
 
-		return;
+		return; 
 	}
 
 	public virtual void OnClose(){

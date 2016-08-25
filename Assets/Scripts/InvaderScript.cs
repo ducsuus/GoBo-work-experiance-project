@@ -13,6 +13,9 @@ public class InvaderScript : MonoBehaviour {
     // The object which the invader is currently attracted to
     public GameObject attraction;
 
+  	// Finds the Player
+  	public GameObject player;
+
     // The closest point at which the invader will still move towards its attraction
     public float closestApproach = 10.0f;
 
@@ -42,11 +45,13 @@ public class InvaderScript : MonoBehaviour {
 
 		InvokeRepeating("Shoot", 0, bulletTime);
 
-		this.transform.localScale = new Vector3(InvaderScale, InvaderScale, InvaderScale); //SET SIZE\
+		float ScaleFactor = (float) Math.Sqrt(InvaderScale);
+
+		this.transform.localScale = new Vector3(ScaleFactor, ScaleFactor, ScaleFactor); //SET SIZE\
 
 		this.health = InvaderScale * 25;
 
-		this.speed = InvaderScale / 12;
+		this.speed = 25 - ( (float) Math.Pow(InvaderScale/10, 2));
 	
 	}
 
@@ -65,12 +70,14 @@ public class InvaderScript : MonoBehaviour {
 	    bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up.normalized * this.bulletSpeed;
 
 	    // Change bullet damage
-	    bullet.GetComponent<InvaderBulletScript>().BulletDamage = this.InvaderScale / 10;
+	    bullet.GetComponent<InvaderBulletScript>().BulletDamage = this.InvaderScale / 5;
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
+		Debug.Log(this.attraction);
 
 		if(this.attraction == null)
 			return;
@@ -90,28 +97,36 @@ public class InvaderScript : MonoBehaviour {
 	        // Move invader
 	        transform.Translate(movement);
 
-
-
 		}
 	
 	}
 
 	public bool Hit(int damage){
 
+		//Find PlayerScript
+		PlayerScript playerScript = player.GetComponent<PlayerScript>();
+
 		// Take the damage
 		this.health -= damage;
+
+		// Add ten to points for a hit
+		playerScript.playerScore += 10;
 
 		// If health less than 0 invader is dead
 		if (this.health <= 0){
 
-			// Destroy self in 0.4 second
-			Destroy(this.gameObject, 0.1f);
+			// Destroy self
+			Destroy(this.gameObject);
 
 			// Particle effects (?)
 			Instantiate(this.explosionPrefab, this.transform.position, this.transform.rotation);
 
 			// Total invader count - 1
 			InvaderSpawn.GetComponent<EnemySpawnScript>().NoInvadersAlive--;
+
+			// Add 100 points to score when invader killed
+			playerScript.playerScore += 100; 
+
 
 			// Enemy destroyed
 			return true;
