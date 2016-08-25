@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 public class InvaderScript : MonoBehaviour {
@@ -19,7 +20,7 @@ public class InvaderScript : MonoBehaviour {
     public GameObject explosionPrefab;
 
     // Bullet Speed
-    public float bulletSpeed = 10.0f;
+    public float bulletSpeed = 100.0f;
 
     //Fire Rate
     public float bulletTime = 4.0f;
@@ -51,13 +52,20 @@ public class InvaderScript : MonoBehaviour {
 
 	void Shoot () { // Pew Pew
 
-		GameObject InvaderBullet = (GameObject) Instantiate(InvaderBulletPrefab, InvaderBulletOrigin.transform.position, InvaderBulletOrigin.transform.rotation); //Creates Instance Of Bullet
+        // Fancy rotation
+        //Quaternion rotation = Quaternion.Euler(this.GetShootingAngle(), 90, 0);
+        Quaternion rotation = Quaternion.Euler(this.GetShootingAngle(), this.InvaderBulletOrigin.transform.rotation.eulerAngles.y, this.InvaderBulletOrigin.transform.rotation.eulerAngles.z);
 
-		Vector3 force = InvaderBulletOrigin.transform.forward * bulletSpeed * 1;	// Defines direction and magnitude of force
+        Debug.Log("Rotation y: " + this.InvaderBulletOrigin.transform.rotation.y);
 
-        InvaderBullet.GetComponent<Rigidbody>().AddForce(force); // Adds the force
+        // Fancy bullet
+		GameObject bullet = (GameObject) MonoBehaviour.Instantiate(this.InvaderBulletPrefab, this.InvaderBulletOrigin.transform.position, rotation); 
 
-        InvaderBullet.GetComponent<InvaderBulletScript>().BulletDamage = InvaderScale / 10;
+		// Fancy speed
+	    bullet.GetComponent<Rigidbody>().velocity = bullet.transform.up.normalized * this.bulletSpeed;
+
+	    // Change bullet damage
+	    bullet.GetComponent<InvaderBulletScript>().BulletDamage = this.InvaderScale / 10;
 
 	}
 	
@@ -114,4 +122,45 @@ public class InvaderScript : MonoBehaviour {
 		return false;
 
 	}
+
+	float GetShootingAngle(){
+
+    	// x distance
+    	float xDistance = transform.position.x - this.attraction.transform.position.x;
+    	// y distance
+    	float yDistance = transform.position.y - this.attraction.transform.position.y;
+    	// z distance
+    	float zDistance = transform.position.z - this.attraction.transform.position.z;
+
+    	// Horizontal distance
+    	float d = (float) Math.Sqrt( Math.Pow(xDistance, 2) + Math.Pow(zDistance, 2) );
+
+    	// Vertical distance
+    	float h = yDistance;
+
+    	// Starting speed
+    	float u = this.bulletSpeed;
+    	//float u = 10.0f;
+
+    	// Gravity (should be dynamic at some point -> physics.gravity?)
+    	float g = 9.81f;
+
+    	/* REMEMBER JOE THERE IS A PLUS OR MINUS HERE WE ARE USING PLUS RIGHT NOW BUT IT MAKES NOT A SENSE IF WE HAVE TWO CASES WHERE ONE MIGHT BE BROKE */
+
+    	//                 --> \/ <-- Plus or minus goes here
+    	double tanAlpha = ( -d + Math.Sqrt( Math.Pow(d, 2) + 2 * h * g * Math.Pow(d, 2) / Math.Pow(u, 2) - Math.Pow(g, 2) * Math.Pow(d, 4) / Math.Pow(u, 4) ) ) / ( -1 * g * Math.Pow(d, 2) / Math.Pow(u, 2) );
+
+    	// Correct
+    	float alpha = Mathf.Rad2Deg * Mathf.Atan((float) tanAlpha);
+
+    	Debug.Log("tanAlpha: " + tanAlpha);
+    	Debug.Log("d: " + d + " h: " + h + " u: " + u + " g: " + g);
+
+    	Debug.Log("Square root: " +  (Math.Pow(d, 2) + 2 * h * g * Math.Pow(d, 2) / Math.Pow(u, 2) - Math.Pow(g, 2) * Math.Pow(d, 4) / Math.Pow(u, 4) ));
+    	Debug.Log("Without minus: " +  (Math.Pow(d, 2) + 2 * h * g * Math.Pow(d, 2) / Math.Pow(u, 2) ));
+    	Debug.Log("Minus part: " +  (Math.Pow(g, 2) * Math.Pow(d, 4) / Math.Pow(u, 4)));
+
+    	return 90.0f - alpha;
+
+    }
 }
