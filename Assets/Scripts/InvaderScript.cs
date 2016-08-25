@@ -43,9 +43,9 @@ public class InvaderScript : MonoBehaviour {
 
 		this.transform.localScale = new Vector3(InvaderScale, InvaderScale, InvaderScale); //SET SIZE\
 
-		this.health = InvaderScale * 10;
+		this.health = InvaderScale * 25;
 
-		this.speed = InvaderScale / 10;
+		this.speed = InvaderScale / 12;
 	
 	}
 
@@ -56,6 +56,8 @@ public class InvaderScript : MonoBehaviour {
 		Vector3 force = InvaderBulletOrigin.transform.forward * bulletSpeed * 1;	// Defines direction and magnitude of force
 
         InvaderBullet.GetComponent<Rigidbody>().AddForce(force); // Adds the force
+
+        InvaderBullet.GetComponent<InvaderBulletScript>().BulletDamage = InvaderScale / 10;
 
 	}
 	

@@ -20,7 +20,7 @@ public class DeathOnContact : MonoBehaviour {
 
 		Destroy(gameObject); // rip in peace
 		
-		Instantiate(this.explosionPrefab, this.transform.position, this.transform.rotation); // Particle effect
+		Instantiate(this.explosionPrefab, this.transform.position, Quaternion.identity); // Particle effect
 
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+// using System.Math;
 
 public class EnemySpawnScript : MonoBehaviour {
 	
@@ -26,7 +27,7 @@ public class EnemySpawnScript : MonoBehaviour {
 
 		InvaderScript script = invader.GetComponent<InvaderScript>(); // Give it it's script
 
-		script.InvaderScale = Random.Range(1,100); // Gives Invader a scale value
+		script.InvaderScale = Random.Range(1,50); // Gives Invader a scale value
 
 		script.attraction = this.attraction; // Sets Attraction to player <3
 
@@ -38,7 +39,7 @@ public class EnemySpawnScript : MonoBehaviour {
 
 	void Wave () {
 
-		for (int i=0; (i < (WaveNumber*3)); i++) {
+		for (int i=0; i < System.Math.Pow((WaveNumber + 2), 2); i++) {
 
 			Spawn();
 
