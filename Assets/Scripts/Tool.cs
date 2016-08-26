@@ -15,6 +15,8 @@ public class Tool : MonoBehaviour {
 
 		this.player = player;
 
+		this.OnOpen();
+
 		return; 
 	}
 
